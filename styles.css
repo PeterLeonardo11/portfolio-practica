@@ -1,0 +1,365 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+html{
+    scroll-behavior: smooth; /* Suaviza el scroll al hacer click en un enlace */
+}
+
+body {
+    background-color: #e0e0e0;
+}
+
+/* --- NAVBAR (Contenedor Principal) --- */
+.navbar {
+    background-color: rgba(0, 10, 30, 0.5); /* Fondo semitransparente */
+    height: 70px;
+    padding: 0 30px; /* 0 arriba y abajo, 30px izquierda y derecha */
+
+    /* FLEXBOX: La clave de todo */
+    display: flex;
+    justify-content: space-between; /* Espacio entre los elementos */
+    align-items: center; /* Alinea verticalmente al centro */
+
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 100; /* Para que esté por encima de otros elementos */
+}
+
+/* --- LOGO --- */
+.logo {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+/* --- LINKS (Menu Desktop) --- */
+.nav-links {
+    list-style: none; /* Quitar los puntos de la lista */
+    display: flex; /* Mostrar los elementos en fila */
+    gap: 25px; /* Espacio entre los elementos */
+}
+
+.nav-links a {
+    text-decoration: none; /* Quitar subrayado */
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.nav-links a:hover {
+    color: #44c6d7d6;
+}
+
+/* --- BOTON HAMBUERGUESA (El truco) --- */
+.menu-toggle {
+    display: none; /* Oculto por defecto en PC */
+    color: #fff;
+    font-size: 1.6rem;
+    cursor: pointer;
+}
+
+/* --- MEDIA QUERIES (Para celulares y tablets) --- */
+@media (max-width: 768px) {
+
+    /* 1. ¡Aparecen el botón hamburguesa! */
+    .menu-toggle {
+        display: block;
+    }
+
+    /* 2. Re-estilizar los links (menú) */
+    .nav-links {
+        position: absolute;
+        width: 100%;
+        background-color: rgba(0, 10, 30, 0.5); /* Fondo semitransparente */
+        border-top: 1px solid #44c6d72e;
+
+        left: 0;
+
+        /* Inicialmente fuera de la vista */
+        top: -100dvh;
+
+        /* Estilo de columna */
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+
+        /* Animación suave */
+        transition: top 1s ease;
+
+        z-index: 0;
+    }
+
+    /* 3. Damos mas espacio entre los links */
+    .nav-links li {
+        margin: 15px 0;
+    }
+
+    /* 4. Cuando el menú está activo (visible) */
+    .nav-links.active {
+        top: 70px; /* Justo debajo de la navbar */
+    }
+}
+
+/* --- HERO SECTION (Sección Principal) --- */
+.hero {
+    height: 100dvh;
+    width: 100%;
+
+    display: flex;
+    justify-content: flex-start; /* Alinea a la izquierda */
+    align-items: center; /* Centra verticalmente */
+    text-align: left; /* Texto alineado a la izquierda */
+    color: #fff;
+    padding: 20px 5%; /* 20px arriba y abajo, 5% izquierda y derecha */
+}
+
+.hero-image {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100dvh;
+    width: 100%;
+
+    /* Imagen de fondo */
+    background-image: linear-gradient(rgba(0,10,30,0.7), rgba(0,10,30,0.7)), url(img/—Slidesdocs—tecnología\ futuro\ ciencia\ azul_577809ac92.jpg);
+
+    background-size: cover; /* Cubrir todo el contenedor */
+    background-position: right; /* Centrar la imagen */
+    z-index: -1; /* Detrás del contenido */
+}
+
+/* Limitamos el ancho del bloque de texto */
+.hero-content {
+    max-width: 600px; /* Ancho máximo de 600px */
+}
+
+
+.btn-hero {
+    margin-top: 15px;
+    padding: 10px 25px;
+    background-color: #44c6d7bf;
+    color: #000;
+    border: none;
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none; /* Para que no se subraye si es un enlace */
+    display: inline-block; /* Para que tome el padding */
+}
+
+.btn-hero:hover {
+    transform: scale(1.1);
+    /* El brillo tambien lo combinamos a cian */
+    box-shadow: 0 0 20px #aad2ff;
+}
+
+
+/* --- SECCION GENERAL --- */
+.projects-section {
+    padding: 80px 20px; /* 80px arriba y abajo, 20px izquierda y derecha */
+    color: #fff;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 2.3rem;
+    margin-bottom: 50px;
+    color: #44c6d7aa;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* -- LA GRILLA MAGICA (CSS GRID) --- */
+.projects-grid{
+    display: grid;
+    gap: 30px; /* Espacio entre los elementos */
+
+    /* ESTA ES LA LINEA CLAVE */
+    /* Crea columnas de minimo 300px. Si entran 3, pone 3, si entran 2, pone 2, etc */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+    max-width: 1200px; /* Que no se estire infinito */
+    margin: 0 auto; /* Centrar la grilla */
+}
+
+/* --- TARJETAS DE PROYECTOS --- */
+.projects-card {
+    background-color: rgba(255, 255, 255, 0.05);
+
+    /* Para dar un efecto de vidrio esmerilado */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Para Safari */
+
+    border-radius: 15px;
+    overflow: hidden; /* Para que las imagenes no sobresalgan */
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.01); /* Borde sutil */
+    text-align: left; /* Texto alineado a la izquierda */
+}
+
+.projects-card:hover {
+    transform: translateY(-10px); /* Efecto de elevación */
+    border-color: #00d0ff7d;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Imagen del proyecto */
+.projects-card img.card-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover; /* Para que la imagen cubra el área sin distorsionarse */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.card-info {
+    padding: 20px;
+}
+
+.card-info h3 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+
+.card-info p {
+    color: #aaa;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.btn-card {
+    display: inline-block; /* Para que tome el padding */
+    padding: 8px 20px;
+    background-color: transparent;
+    border: 1px solid #44c6d7a5;
+    border-radius: 5px;
+    color: #44c6d7a5;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.btn-card:hover {
+    background-color: #44c6d7a5;
+    color: #000;
+}
+
+/* ------ SECCION CONTACTO  ------ */
+.contact-section {
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.contact-container {
+    max-width: 600px; /* Que no sea muy ancho */
+    margin: 0 auto;
+}
+
+/* --- FORMULARIO DE CONTACTO --- */
+.contact-form {
+    /* Copiamos el estilo de las tarjetas */
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.01);
+
+    padding: 40px;
+    border-radius: 20px;
+    text-align: left; /* Las etiquetas quedan mejor a la izquierda */
+}
+
+/* INPUTS Y LABELS */
+.input-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column; /* Etiqueta arriba, input abajo */
+}
+
+.input-group label {
+    color: #00d0ff7d;
+    margin-bottom: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+/* Estilos de las cajitas de texto */
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.02);
+    background-color: rgba(0, 0, 0, 0.4);
+    color: #fff;
+    font-size: 1rem;
+    outline: none; /* Quita el borde azul al hacer click */
+    transition: 0.3s;
+    resize: none; /* Evita que se pueda redimensionar el textarea */
+}
+
+/* Efecto al enfocar (hacer click) */
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: #44c6d759; /* Cambia el color del borde */
+    background-color: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(0, 210, 255, 0.1);
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 12px;
+    background-color: #44c6d7bf;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.btn-submit:hover {
+    background-color: #fff;
+    box-shadow: 0 0 9px #fff;
+}
+
+/* --- FOOTER --- */
+footer {
+    padding: 40px;
+    text-align: center;
+    color: #888;
+    font-size: 0.8rem;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* --- Iconos de redes sociales --- */
+.social-icons {
+    margin-bottom: 15px;
+}
+
+.social-icons a {
+    color: #fff;
+    font-size: 1.5rem;
+    margin: 0 15px;
+    text-decoration: none;
+    transition: 0.3s;
+    display: inline-block;
+}
+
+.social-icons a:hover{
+    transform: translateY(-3px); /* Efecto de elevación */
+    color: #44c6d792;
+    text-shadow: 0 0 10px #44c6d7af;
+}
